@@ -1,11 +1,19 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits, MessageFlags } = require('discord.js');
+const { Client, Collection, IntentsBitField, Partials } = require('discord.js');
 require('dotenv').config();
 
 const TOKEN = process.env.DISCORD_TOKEN;
-
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const myIntents = new IntentsBitField();
+myIntents.add(
+	IntentsBitField.Flags.Guilds,
+	IntentsBitField.Flags.GuildPresences,
+	IntentsBitField.Flags.GuildMembers,
+	IntentsBitField.Flags.GuildMessages,
+	IntentsBitField.Flags.MessageContent,
+	IntentsBitField.Flags.GuildMessageReactions,
+);
+const client = new Client({ intents: myIntents, partials: [Partials.Message, Partials.Channel, Partials.Reaction] });
 
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
@@ -19,7 +27,8 @@ for (const folder of commandFolders) {
 		const command = require(filePath);
 		if ('data' in command && 'execute' in command) {
 			client.commands.set(command.data.name, command);
-		} else {
+		}
+		else {
 			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
 		}
 	}
@@ -33,7 +42,8 @@ for (const file of eventFiles) {
 	const event = require(filePath);
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args));
-	} else {
+	}
+	else {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
