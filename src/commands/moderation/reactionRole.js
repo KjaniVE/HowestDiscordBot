@@ -15,7 +15,7 @@ module.exports = {
 		const csEmoji = '1️⃣';
 		const tiEmoji = '2️⃣';
 
-		const csRole = interaction.options;
+		const csRole = interaction.guild.roles.cache.find(role => role.name === 'CS - Cybersecurity');
 		const tiRole = interaction.guild.roles.cache.find(role => role.name === 'TI - Cybersecurity');
 
 		// Create an embed
