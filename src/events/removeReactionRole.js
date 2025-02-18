@@ -1,29 +1,37 @@
-const {Events} = require("discord.js");
+const { Events } = require('discord.js');
+const fs = require('fs');
+const path = require('path');
 
 module.exports = {
-    name: Events.MessageReactionRemove,
-    once: false,  // `false` so it triggers every time
-    async execute(reaction, user) {
-        if (user.bot) return;
-        if (!reaction.message.guild) return;
+	name: Events.MessageReactionRemove,
+	once: false,
+	async execute(reaction, user) {
+		if (user.bot) return;
+		if (!reaction.message.guild) return;
 
-        const csEmoji = '1️⃣';
-        const tiEmoji = '2️⃣';
+		const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'messageId.json'), 'utf8'));
+		const specificMessageID = data.messageId;
 
-        const csRole = reaction.message.guild.roles.cache.find(role => role.name === 'CS - Cybersecurity');
-        const tiRole = reaction.message.guild.roles.cache.find(role => role.name === 'TI - Cybersecurity');
+		if (reaction.message.id !== specificMessageID) return;
 
-        if (!csRole || !tiRole) {
-            console.log("Roles not found!");
-            return;
-        }
+		const csEmoji = '1️⃣';
+		const tiEmoji = '2️⃣';
 
-        const member = await reaction.message.guild.members.fetch(user.id);
+		const csRole = reaction.message.guild.roles.cache.find(role => role.name === 'CS - Cybersecurity');
+		const tiRole = reaction.message.guild.roles.cache.find(role => role.name === 'TI - Cybersecurity');
 
-        if (reaction.emoji.name === csEmoji) {
-            await member.roles.remove(csRole);
-        } else if (reaction.emoji.name === tiEmoji) {
-            await member.roles.remove(tiRole);
-        }
-    }
+		if (!csRole || !tiRole) {
+			console.log('Roles not found!');
+			return;
+		}
+
+		const member = await reaction.message.guild.members.fetch(user.id);
+
+		if (reaction.emoji.name === csEmoji) {
+			await member.roles.remove(csRole);
+		}
+		else if (reaction.emoji.name === tiEmoji) {
+			await member.roles.remove(tiRole);
+		}
+	},
 };
