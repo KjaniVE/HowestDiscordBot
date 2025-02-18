@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, IntentsBitField, Partials } = require('discord.js');
+const { connectDB } = require('./dbClient');
 require('dotenv').config();
 
 const TOKEN = process.env.DISCORD_TOKEN;
@@ -48,6 +49,8 @@ for (const file of eventFiles) {
 	}
 }
 
-client.login(TOKEN).then(() => {
-	console.log('Bot is ready!');
-}).catch(console.error);
+connectDB()
+	.then(() => {
+		client.login(TOKEN)
+	})
+	.catch(console.error);
