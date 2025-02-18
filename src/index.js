@@ -48,4 +48,6 @@ for (const file of eventFiles) {
 	}
 }
 
-client.login(TOKEN);
+client.login(TOKEN).then(() => {
+	console.log('Bot is ready!');
+}).catch(console.error);
