@@ -3,7 +3,8 @@ const path = require('node:path');
 const { Client, Collection, IntentsBitField, Partials } = require('discord.js');
 const { connectDB } = require('./dbClient');
 const {runMigrations} = require("./migrations");
-const {initializeActionTypes} = require("./actionTypes");
+const {initializeActionTypes} = require("./initializers/actionTypes");
+const {initializeRoles} = require("./initializers/roles");
 require('dotenv').config();
 
 const TOKEN = process.env.DISCORD_TOKEN;
@@ -55,7 +56,9 @@ connectDB()
 	.then(() => {
 		runMigrations().then(() => {
 			initializeActionTypes().then(() => {
-				client.login(TOKEN)
+				initializeRoles().then(() => {
+					client.login(TOKEN)
+				})
 			})
 		})
 	})
