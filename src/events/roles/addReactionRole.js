@@ -1,10 +1,10 @@
-const {Events} = require('discord.js');
+const { Events } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
-const {reactionAction} = require("../handlers/reationHandler");
+const {reactionAction} = require("../../handlers/reationHandler");
 
 module.exports = {
-    name: Events.MessageReactionRemove,
+    name: Events.MessageReactionAdd,
     once: false,
     async execute(reaction, user) {
         if (user.bot) return;
@@ -15,6 +15,6 @@ module.exports = {
 
         if (reaction.message.id !== specificMessageID) return;
 
-        await reactionAction(reaction.message.guild, reaction, user, 'ROLE_REMOVED');
+        await reactionAction(reaction.message.guild, reaction, user, 'ROLE_ADDED');
     }
 };

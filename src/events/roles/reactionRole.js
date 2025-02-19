@@ -1,7 +1,7 @@
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-const { dbClient } = require('../dbClient'); // Assuming dbClient is exported from a separate module
+const { dbClient } = require('../../dbClient'); // Assuming dbClient is exported from a separate module
 const { Events, EmbedBuilder } = require('discord.js');
 
 module.exports = {

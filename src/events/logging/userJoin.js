@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const { dbClient } = require('../dbClient');
+const { dbClient } = require('../../dbClient');
 
 module.exports = {
     name: Events.GuildMemberAdd,
