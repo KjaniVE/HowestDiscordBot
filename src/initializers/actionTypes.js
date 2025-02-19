@@ -7,6 +7,14 @@ async function initializeActionTypes() {
 		{ key: 'USER_LEFT', name: 'User Left', color: '#FFA500' },
 		{ key: 'ROLE_ADDED', name: 'Role added', color: '#00FF00' },
 		{ key: 'ROLE_REMOVED', name: 'Role removed', color: '#FFA500' },
+		{ key: 'USER_BANNED', name: 'User Banned', color: '#FF0000' },
+		{ key: 'USER_BAN_FAILED', name: 'User Banned', color: '#FF0000' },
+		{ key: 'USER_UNBANNED', name: 'User Unbanned', color: '#FF0000' },
+		{ key: 'USER_KICKED', name: 'User Kicked', color: '#FFA500' },
+		{ key: 'USER_KICK_FAILED', name: 'User Kicked', color: '#FF0000' },
+		{ key: 'USER_MUTED', name: 'User Muted', color: '#FFA500' },
+		{ key: 'USER_UNMUTED', name: 'User Unmuted', color: '#00FF00' },
+		{ key: 'USER_WARNED', name: 'User Warned', color: '#FFA500' },
 	];
 
 	for (const { key, name, color } of actionTypes) {
