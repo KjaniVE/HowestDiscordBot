@@ -1,4 +1,4 @@
-const { dbClient } = require('../dbClient');
+const { dbClient } = require('../db/dbClient');
 
 async function initializeActionTypes() {
     const actionTypes = [

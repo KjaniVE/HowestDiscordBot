@@ -1,8 +1,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const {Client, Collection, IntentsBitField, Partials} = require('discord.js');
-const {connectDB} = require('./dbClient');
-const {runMigrations} = require("./migrations");
+const {connectDB} = require('./db/dbClient');
+const {runMigrations} = require("./db/migrations");
 const {initializeActionTypes} = require("./initializers/actionTypes");
 const {initializeRoles} = require("./initializers/roles");
 require('dotenv').config();

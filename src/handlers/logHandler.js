@@ -1,4 +1,4 @@
-const { dbClient } = require('../dbClient');
+const { dbClient } = require('../db/dbClient');
 const { EmbedBuilder } = require('discord.js');
 require('dotenv').config();
 

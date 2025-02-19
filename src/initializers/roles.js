@@ -1,4 +1,4 @@
-const { dbClient } = require('../dbClient');
+const { dbClient } = require('../db/dbClient');
 require('dotenv').config();
 
 async function initializeRoles() {
