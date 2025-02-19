@@ -1,7 +1,7 @@
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-const { dbClient } = require('../../db/dbClient'); // Assuming dbClient is exported from a separate module
+const { dbClient } = require('../../db/dbClient');
 const { Events, EmbedBuilder } = require('discord.js');
 
 module.exports = {
@@ -48,7 +48,8 @@ module.exports = {
 				await message.react(emoji);
 			}
 
-		} catch (error) {
+		}
+		catch (error) {
 			console.error('Error fetching roles from database:', error);
 		}
 	},

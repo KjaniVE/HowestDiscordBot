@@ -1,11 +1,11 @@
-const {dbClient} = require('./dbClient');
+const { dbClient } = require('./dbClient');
 
 async function runMigrations() {
-    try {
-        console.log('Running database migrations...');
+	try {
+		console.log('Running database migrations...');
 
-        // Create users table if it doesn't exist
-        await dbClient.query(`
+		// Create users table if it doesn't exist
+		await dbClient.query(`
             CREATE TABLE IF NOT EXISTS users
             (
                 user_id    SERIAL PRIMARY KEY,
@@ -15,8 +15,8 @@ async function runMigrations() {
             );
         `);
 
-        // Create logs table if it doesn't exist
-        await dbClient.query(`
+		// Create logs table if it doesn't exist
+		await dbClient.query(`
             CREATE TABLE IF NOT EXISTS logs
             (
                 log_id             SERIAL PRIMARY KEY,
@@ -30,7 +30,7 @@ async function runMigrations() {
         `);
 
 
-        await dbClient.query(`
+		await dbClient.query(`
             CREATE TABLE IF NOT EXISTS guilds
             (
                 guild_id         SERIAL PRIMARY KEY,
@@ -41,7 +41,7 @@ async function runMigrations() {
             );
         `);
 
-        await dbClient.query(`
+		await dbClient.query(`
             CREATE TABLE IF NOT EXISTS roles
             (
                 role_id         SERIAL PRIMARY KEY,
@@ -53,7 +53,7 @@ async function runMigrations() {
             );
         `);
 
-        await dbClient.query(`
+		await dbClient.query(`
             CREATE TABLE IF NOT EXISTS command_usage
             (
                 command_id   SERIAL PRIMARY KEY,
@@ -64,7 +64,7 @@ async function runMigrations() {
             )
         `);
 
-        await dbClient.query(`
+		await dbClient.query(`
             CREATE TABLE IF NOT EXISTS events
             (
                 event_id          SERIAL PRIMARY KEY,
@@ -76,7 +76,7 @@ async function runMigrations() {
             );
         `);
 
-        await dbClient.query(`
+		await dbClient.query(`
             CREATE TABLE IF NOT EXISTS action_types
             (
                 action_id    SERIAL PRIMARY KEY,
@@ -87,11 +87,11 @@ async function runMigrations() {
         `);
 
 
-
-        console.log('Migrations completed successfully.');
-    } catch (error) {
-        console.error('Error running migrations:', error);
-    }
+		console.log('Migrations completed successfully.');
+	}
+	catch (error) {
+		console.error('Error running migrations:', error);
+	}
 }
 
-module.exports = {runMigrations};
+module.exports = { runMigrations };
