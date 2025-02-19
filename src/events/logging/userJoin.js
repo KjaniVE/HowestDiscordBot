@@ -1,5 +1,6 @@
 const { Events } = require('discord.js');
 const { dbClient } = require('../../db/dbClient');
+const { logAction } = require('../../handlers/logHandler');
 
 module.exports = {
 	name: Events.GuildMemberAdd,
@@ -32,5 +33,7 @@ module.exports = {
 			'INSERT INTO logs (action_type, action_description, discord_id) VALUES ($1, $2, $3)',
 			[actionType, description, discordId],
 		);
+
+		await logAction(member.guild, 'USER_JOINED', description, discordId);
 	},
 };
