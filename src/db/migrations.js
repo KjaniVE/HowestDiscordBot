@@ -45,7 +45,6 @@ async function runMigrations() {
             CREATE TABLE IF NOT EXISTS roles
             (
                 role_id         SERIAL PRIMARY KEY,
-                guild_id        BIGINT       NOT NULL,
                 emoji           VARCHAR(255) NOT NULL UNIQUE,
                 role_name       VARCHAR(255),
                 discord_role_id BIGINT,
