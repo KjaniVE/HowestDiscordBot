@@ -1,6 +1,10 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, IntentsBitField, Partials } = require('discord.js');
+const { connectDB } = require('./db/dbClient');
+const { runMigrations } = require('./db/migrations');
+const { initializeActionTypes } = require('./initializers/actionTypes');
+const { initializeRoles } = require('./initializers/roles');
 require('dotenv').config();
 
 const TOKEN = process.env.DISCORD_TOKEN;
@@ -48,6 +52,35 @@ for (const file of eventFiles) {
 	}
 }
 
-client.login(TOKEN).then(() => {
-	console.log('Bot is ready!');
-}).catch(console.error);
+const eventFolders = fs.readdirSync(eventsPath).filter(folder => {
+	return fs.lstatSync(path.join(eventsPath, folder)).isDirectory();
+});
+
+for (const folder of eventFolders) {
+	const eventPath = path.join(eventsPath, folder);
+	const eventFilesInFolders = fs.readdirSync(eventPath).filter(file => file.endsWith('.js'));
+
+	for (const file of eventFilesInFolders) {
+		const filePath = path.join(eventPath, file);
+		const event = require(filePath);
+
+		if (event.once) {
+			client.once(event.name, (...args) => event.execute(...args));
+		}
+		else {
+			client.on(event.name, (...args) => event.execute(...args));
+		}
+	}
+}
+
+connectDB()
+	.then(() => {
+		runMigrations().then(() => {
+			initializeActionTypes().then(() => {
+				initializeRoles().then(() => {
+					client.login(TOKEN);
+				});
+			});
+		});
+	})
+	.catch(console.error);

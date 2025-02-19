@@ -129,4 +129,4 @@ dist
 .pnp.*
 
 .idea
-src/events/messageId.json
+src/events/roles/messageId.json
