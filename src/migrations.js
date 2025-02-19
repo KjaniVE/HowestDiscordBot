@@ -73,6 +73,18 @@ async function runMigrations() {
             );
         `);
 
+        await dbClient.query(`
+            CREATE TABLE IF NOT EXISTS action_types
+            (
+                action_id    SERIAL PRIMARY KEY,
+                action_key   TEXT UNIQUE NOT NULL,
+                display_name TEXT        NOT NULL,
+                embed_color  TEXT        NOT NULL
+            );
+        `);
+
+
+
         console.log('Migrations completed successfully.');
     } catch (error) {
         console.error('Error running migrations:', error);

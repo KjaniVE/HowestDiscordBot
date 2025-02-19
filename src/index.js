@@ -3,6 +3,7 @@ const path = require('node:path');
 const { Client, Collection, IntentsBitField, Partials } = require('discord.js');
 const { connectDB } = require('./dbClient');
 const {runMigrations} = require("./migrations");
+const {initializeActionTypes} = require("./actionTypes");
 require('dotenv').config();
 
 const TOKEN = process.env.DISCORD_TOKEN;
@@ -53,7 +54,9 @@ for (const file of eventFiles) {
 connectDB()
 	.then(() => {
 		runMigrations().then(() => {
-			client.login(TOKEN)
+			initializeActionTypes().then(() => {
+				client.login(TOKEN)
+			})
 		})
 	})
 	.catch(console.error);
