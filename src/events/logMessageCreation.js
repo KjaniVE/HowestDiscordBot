@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const { logAction } = require('../logHandler');
+const { logAction } = require('../handlers/logHandler');
 
 module.exports = {
     name: Events.MessageCreate,
