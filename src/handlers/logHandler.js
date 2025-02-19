@@ -1,4 +1,4 @@
-const { dbClient } = require('./dbClient');
+const { dbClient } = require('../dbClient');
 const { EmbedBuilder } = require('discord.js');
 require('dotenv').config();
 
@@ -25,7 +25,6 @@ async function logAction(guild, actionKey, description, discordId) {
 
         const { display_name, embed_color } = actionQuery.rows[0];
 
-        // Retrieve username from the users table
         const userQuery = await dbClient.query(
             'SELECT username FROM users WHERE discord_id = $1',
             [discordId]
@@ -38,7 +37,6 @@ async function logAction(guild, actionKey, description, discordId) {
 
         const { username } = userQuery.rows[0];
 
-        // Log to the database (including username)
         await dbClient.query(
             'INSERT INTO logs (action_type, action_description, discord_id, username) VALUES ($1, $2, $3, $4)',
             [actionKey, description, discordId, username]
