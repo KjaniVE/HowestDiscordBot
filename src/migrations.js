@@ -23,10 +23,12 @@ async function runMigrations() {
                 action_type        VARCHAR(255),
                 action_description TEXT,
                 discord_id         BIGINT NOT NULL,
+                username           TEXT NOT NULL,
                 log_timestamp      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (discord_id) REFERENCES users (discord_id)
             );
         `);
+
 
         await dbClient.query(`
             CREATE TABLE IF NOT EXISTS guilds
