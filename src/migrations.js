@@ -45,10 +45,11 @@ async function runMigrations() {
             CREATE TABLE IF NOT EXISTS roles
             (
                 role_id         SERIAL PRIMARY KEY,
-                guild_id        BIGINT       NOT NULL REFERENCES guilds (discord_guild_id),
-                discord_role_id BIGINT       NOT NULL,
-                role_name       VARCHAR(255) NOT NULL,
-                permissions     TEXT -- Optional field for storing role permissions
+                guild_id        BIGINT       NOT NULL,
+                emoji           VARCHAR(255) NOT NULL UNIQUE,
+                role_name       VARCHAR(255),
+                discord_role_id BIGINT,
+                permissions     VARCHAR(255)
             );
         `);
 
