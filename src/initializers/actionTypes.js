@@ -1,10 +1,12 @@
-const { dbClient } = require('./dbClient');
+const { dbClient } = require('../dbClient');
 
 async function initializeActionTypes() {
     const actionTypes = [
         { key: 'MESSAGE_SENT', name: 'Message Sent', color: '#00FF00' },
         { key: 'USER_JOINED', name: 'User Joined', color: '#3498db' },
-        { key: 'USER_LEFT', name: 'User Left', color: '#FFA500' }
+        { key: 'USER_LEFT', name: 'User Left', color: '#FFA500' },
+        { key: 'ROLE_ADDED', name: 'Role added', color: '#00FF00' },
+        { key: 'ROLE_REMOVED', name: 'Role removed', color: '#FFA500' },
     ];
 
     for (const { key, name, color } of actionTypes) {
